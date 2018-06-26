@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#4db6ac</color>
+    <color name="colorPrimaryLight">#82e9de</color>
+    <color name="colorPrimaryDark">#00867d</color>
+    <color name="secondaryColor">#64b5f6</color>
+    <color name="secondaryLightColor">#9be7ff</color>
+    <color name="secondaryDarkColor">#2286c3</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#000000</color>
+    <color name="foreground_material_light">#000000</color>
+    <color name="no_avatar_background_color">#a4a6a4</color>
+    <color name="progress_bar_color">#ff9800</color>
+    <color name="dark_gray">#33494949</color>
+    <color name="black">#F2000000</color>
+</resources>

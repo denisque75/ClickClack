@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="77dp"
+    android:gravity="center">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/chat__profile_image"
+        android:layout_width="55dp"
+        android:layout_height="63dp"
+        android:paddingEnd="2dp"
+        android:paddingStart="2dp"
+        android:src="@drawable/ic_letter_j"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#00000000" />
+
+    <LinearLayout
+        android:layout_margin="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/chat__user_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Jhon Newman"
+                android:textColor="@color/black"
+                android:textSize="@dimen/name_size" />
+
+            <TextView
+                android:id="@+id/chat__time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="22dp"
+                android:layout_marginTop="2dp"
+                android:text="12:02" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/chat__message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="2"
+            android:maxLines="2"
+            android:text="Hello, what are you doing? Do you want to go for a walk?Hello, what are you doing? Do you want to go for a walk?Do you want to go for a walk?" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="start"
+            android:background="@color/dark_gray" />
+    </LinearLayout>
+</LinearLayout>

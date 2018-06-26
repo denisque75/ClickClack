@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "158329312415",
+    "firebase_url": "https://click-clack-messenger.firebaseio.com",
+    "project_id": "click-clack-messenger",
+    "storage_bucket": "click-clack-messenger.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158329312415:android:6813eaf57dd0bb68",
+        "android_client_info": {
+          "package_name": "com.clickclackmessenger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "158329312415-e8jahbvisaasdudodrhv0913pok4c608.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clickclackmessenger",
+            "certificate_hash": "d40051fb099e206bdf9ad90f6a0db01e3dd26535"
+          }
+        },
+        {
+          "client_id": "158329312415-ui4lf7ghp8ki3tb8o9lhqjpit51jpf8s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1_h7WZa39k_haz6_YVbfETzoPwyXJ9WE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "158329312415-ui4lf7ghp8ki3tb8o9lhqjpit51jpf8s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
