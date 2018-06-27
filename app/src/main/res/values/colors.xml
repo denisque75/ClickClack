@@ -14,4 +14,5 @@
     <color name="progress_bar_color">#ff9800</color>
     <color name="dark_gray">#33494949</color>
     <color name="black">#F2000000</color>
+    <color name="outgoing_message_color">#bdbdbd</color>
 </resources>
