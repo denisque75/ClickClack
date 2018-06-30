@@ -13,4 +13,5 @@
     <string name="enter_one_time_password_below">Enter one time password below</string>
     <string name="plus">+</string>
     <string name="enter_your_phone_number">Enter your phone number</string>
+    <string name="title_activity_inherit_chat">InheritChat</string>
 </resources>

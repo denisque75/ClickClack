@@ -1,5 +1,6 @@
 package com.clickclackmessenger.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,9 +9,12 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.clickclackmessenger.R;
+import com.clickclackmessenger.entities.users.Interlocutor;
+import com.clickclackmessenger.ui.chat_screens.ChatAdapter;
 import com.clickclackmessenger.ui.chat_screens.ChatMainScreenFragment;
+import com.clickclackmessenger.ui.chat_screens.InheritChat;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ChatAdapter.OnChatChosen {
 
     private TextView mTextMessage;
 
@@ -24,6 +28,13 @@ public class MainActivity extends AppCompatActivity {
         mTextMessage = findViewById(R.id.message);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    @Override
+    public void chatChosen(Interlocutor interlocutor) {
+        Intent intent = new Intent(this, InheritChat.class);
+        intent.putExtra(InheritChat.INTERLOCUTOR, interlocutor);
+        startActivity(intent);
     }
 
     private class NavigationItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_chatbox"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+    android:background="@drawable/rounded_rectangle"
+    android:minHeight="48dp"
+    android:orientation="horizontal">
+
+    <EditText
+        android:id="@+id/edittext_chatbox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:hint="Enter message"
+        android:maxLines="6" />
+
+    <ImageView
+        android:id="@+id/button_chatbox_send"
+        android:layout_width="44dp"
+        android:layout_height="28dp"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:gravity="center"
+        android:src="@drawable/ic_send"
+        android:text="SEND"
+        android:textSize="14dp" />
+
+</LinearLayout>

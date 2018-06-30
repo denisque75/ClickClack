@@ -1,6 +1,8 @@
 package com.clickclackmessenger;
 
 import com.clickclackmessenger.entities.chats.Chat;
+import com.clickclackmessenger.entities.chats.Message;
+import com.clickclackmessenger.entities.users.BaseUser;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -89,5 +91,58 @@ public class Stubs {
         chatList.add(c10);
 
         return chatList;
+    }
+
+    public static List<Message> getConversation() {
+        List<Message> messages = new ArrayList<>();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR_OF_DAY, -2);
+        calendar.add(Calendar.MINUTE, -21);
+        Date date = calendar.getTime();
+        Message message = new Message(new BaseUser("Denys", "owner", ""), "Hi, what's up?", date.getTime());
+        messages.add(message);
+
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR_OF_DAY, -2);
+        calendar.add(Calendar.MINUTE, -15);
+        date = calendar.getTime();
+        message = new Message(new BaseUser("Jhonny", "12", ""), "Hello, it's ok! How r u?", date.getTime());
+        messages.add(message);
+
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR_OF_DAY, -2);
+        calendar.add(Calendar.MINUTE, -12);
+        date = calendar.getTime();
+        message = new Message(new BaseUser("Denys", "owner", ""), "Me 2! Do u have a work?", date.getTime());
+        messages.add(message);
+
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR_OF_DAY, -2);
+        calendar.add(Calendar.MINUTE, -9);
+        date = calendar.getTime();
+        message = new Message(new BaseUser("Jhonny", "12", ""), "Yeah, sure, I'm a programmer, a software engineer!", date.getTime());
+        messages.add(message);
+
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR_OF_DAY, -1);
+        calendar.add(Calendar.MINUTE, -55);
+        date = calendar.getTime();
+        message = new Message(new BaseUser("Denys", "owner", ""), "Wow, cool, me too) Do u beck-end developer? or you are front-end dev?", date.getTime());
+        messages.add(message);
+
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR_OF_DAY, -1);
+        calendar.add(Calendar.MINUTE, -33);
+        date = calendar.getTime();
+        message = new Message(new BaseUser("Jhonny", "12", ""), "No, I'm the Android developer", date.getTime());
+        messages.add(message);
+
+
+        date = new Date();
+        message = new Message(new BaseUser("Denys", "owner", ""), "That's cool! I am android dev too!", date.getTime());
+        messages.add(message);
+
+        return messages;
     }
 }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.clickclackmessenger.R;
 import com.clickclackmessenger.entities.chats.Chat;
+import com.clickclackmessenger.entities.users.Interlocutor;
 
 import java.util.List;
 
@@ -18,9 +19,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private List<Chat> chats;
+    private OnChatChosen chatChosen;
 
-    public ChatAdapter(List<Chat> chats) {
+    public ChatAdapter(List<Chat> chats, OnChatChosen chatChosen) {
         this.chats = chats;
+        this.chatChosen = chatChosen;
     }
 
     @Override
@@ -35,6 +38,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bindItem(chats.get(position));
+        holder.setChatChosenListener(chatChosen);
 
     }
 
@@ -43,13 +47,16 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         return chats.size();
     }
 
+    public interface OnChatChosen {
+
+        void chatChosen(Interlocutor interlocutor);
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView name;
         public final TextView message;
         public final TextView time;
         public final CircleImageView imageView;
-
-        private final static String IMAGE_STUB = "ic_letter_";
 
         public ViewHolder(View v) {
             super(v);
@@ -57,6 +64,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             message = v.findViewById(R.id.chat__message);
             time = v.findViewById(R.id.chat__time);
             imageView = v.findViewById(R.id.chat__profile_image);
+
+        }
+
+        private void setChatChosenListener(OnChatChosen chatChosen) {
+            itemView.setOnClickListener(v -> {
+                chatChosen.chatChosen(new Interlocutor("a1", name.getText().toString()));
+            });
         }
 
         void bindItem(Chat chat) {
@@ -66,7 +80,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             char firstLetter = chat.getName().toLowerCase().charAt(0);
 
             Resources resources = imageView.getResources();
-            int vectorId = resources.getIdentifier(IMAGE_STUB + firstLetter, "drawable", "com.clickclackmessenger");
+            int vectorId = resources.getIdentifier(Constants.IMAGE_STUB + firstLetter, "drawable", "com.clickclackmessenger");
 
             Drawable drawable = resources.getDrawable(vectorId, null);
             imageView.setImageDrawable(drawable);

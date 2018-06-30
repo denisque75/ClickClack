@@ -1,5 +1,6 @@
 package com.clickclackmessenger.ui.chat_screens;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import com.clickclackmessenger.R;
 import com.clickclackmessenger.Stubs;
 
 public class ChatMainScreenFragment extends Fragment {
+    private ChatAdapter.OnChatChosen onChatChosen;
 
     public ChatMainScreenFragment() {
     }
@@ -31,9 +33,19 @@ public class ChatMainScreenFragment extends Fragment {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(manager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(new ChatAdapter(Stubs.getChats()));
+        recyclerView.setAdapter(new ChatAdapter(Stubs.getChats(), onChatChosen));
 
         return rootView;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ChatAdapter.OnChatChosen) {
+            onChatChosen = (ChatAdapter.OnChatChosen) context;
+        } else {
+            throw new RuntimeException("Activity must implement ChatAdapter.OnChatChosen");
+        }
+
+    }
 }

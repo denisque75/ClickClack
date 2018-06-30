@@ -32,12 +32,12 @@ public class OutgoingMessageView extends LinearLayout {
     }
 
     private void init(Context context, AttributeSet attrs) {
-        View rootView = inflate(context, R.layout.outgoing_message_view, this);
+        View rootView = inflate(context, R.layout.received_message_view, this);
 
-        timeTextView = rootView.findViewById(R.id.outgoing_message__text_message_time);
-        nameTextView = rootView.findViewById(R.id.outgoing_message__text_message_name);
-        messageTextView = rootView.findViewById(R.id.outgoing_message__text_message_body);
-        imageView = imageView.findViewById(R.id.outgoing_message__image_message_profile);
+        timeTextView = rootView.findViewById(R.id.received_message__text_message_time);
+        nameTextView = rootView.findViewById(R.id.received_message__text_message_name);
+        messageTextView = rootView.findViewById(R.id.received_message__text_message_body);
+        imageView = imageView.findViewById(R.id.received_message__image_message_profile);
     }
 
     public String getTime() {
