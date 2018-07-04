@@ -1,6 +1,5 @@
 package com.clickclackmessenger.ui.chat_screens;
 
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,20 +10,23 @@ import android.widget.TextView;
 
 import com.clickclackmessenger.R;
 import com.clickclackmessenger.entities.chats.Message;
-import com.clickclackmessenger.utils.Utils;
+import com.clickclackmessenger.utils.DateUtils;
 
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
-    private static final int VIEW_TYPE_MESSAGE_RECIEVED = 2;
+    private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
 
     private List<Message> messageList;
+    private Map<String, Drawable> avatarMap;
 
-    public MessageAdapter(List<Message> messageList) {
+    public MessageAdapter(List<Message> messageList, Map<String, Drawable> avatarMap) {
         this.messageList = messageList;
+        this.avatarMap = avatarMap;
     }
 
     @Override
@@ -34,7 +36,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
         if (userId.equals("owner")) {
             return VIEW_TYPE_MESSAGE_SENT;
         } else {
-            return VIEW_TYPE_MESSAGE_RECIEVED;
+            return VIEW_TYPE_MESSAGE_RECEIVED;
         }
     }
 
@@ -46,12 +48,11 @@ public class MessageAdapter extends RecyclerView.Adapter {
         if (viewType == VIEW_TYPE_MESSAGE_SENT) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sent_message_item, parent, false);
             return new SentViewHolder(view);
-        } else if (viewType == VIEW_TYPE_MESSAGE_RECIEVED) {
+        } else {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.received_message_view, parent, false);
             return new ReceivedViewHolder(view);
         }
 
-        return null;
     }
 
     @Override
@@ -62,8 +63,8 @@ public class MessageAdapter extends RecyclerView.Adapter {
             case VIEW_TYPE_MESSAGE_SENT:
                 ((SentViewHolder) holder).bind(message);
                 break;
-            case VIEW_TYPE_MESSAGE_RECIEVED:
-                ((ReceivedViewHolder) holder).bind(message);
+            case VIEW_TYPE_MESSAGE_RECEIVED:
+                ((ReceivedViewHolder) holder).bind(message, avatarMap.get(message.getSender().getId()));
                 break;
         }
     }
@@ -78,7 +79,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
         private TextView messageTextView;
         private TextView timeTextView;
 
-        public ReceivedViewHolder(View itemView) {
+        ReceivedViewHolder(View itemView) {
             super(itemView);
             circleImageView = itemView.findViewById(R.id.received_message__image_message_profile);
             messageTextView = itemView.findViewById(R.id.received_message__text_message_body);
@@ -86,16 +87,11 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
         }
 
-        void bind(Message message) {
-            Resources resources = circleImageView.getResources();
-            char firstLetter = message.getSender().getName().toLowerCase().charAt(0);
-            int vectorId = resources.getIdentifier(Constants.IMAGE_STUB + firstLetter, "drawable", "com.clickclackmessenger");
-
-            Drawable drawable = resources.getDrawable(vectorId, null);
-            circleImageView.setImageDrawable(drawable);
+        void bind(Message message, Drawable avatar) {
+            circleImageView.setImageDrawable(avatar);
 
             messageTextView.setText(message.getMessage());
-            timeTextView.setText(Utils.getFormattedDate(message.getCreatedAt()));
+            timeTextView.setText(DateUtils.getFormattedDate(message.getCreatedAt()));
         }
 
     }
@@ -104,15 +100,15 @@ public class MessageAdapter extends RecyclerView.Adapter {
         private TextView messageTextView;
         private TextView timeTextView;
 
-        public SentViewHolder(View itemView) {
+        SentViewHolder(View itemView) {
             super(itemView);
             messageTextView = itemView.findViewById(R.id.sent__text_message_body);
             timeTextView = itemView.findViewById(R.id.sent__text_message_time);
         }
 
-        public void bind(Message message) {
+        void bind(Message message) {
             messageTextView.setText(message.getMessage());
-            timeTextView.setText(Utils.getFormattedDate(message.getCreatedAt()));
+            timeTextView.setText(DateUtils.getFormattedDate(message.getCreatedAt()));
         }
     }
 }

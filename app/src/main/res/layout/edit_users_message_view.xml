@@ -31,7 +31,6 @@
         android:clickable="true"
         android:gravity="center"
         android:src="@drawable/ic_send"
-        android:text="SEND"
-        android:textSize="14dp" />
+        android:focusable="true" />
 
 </LinearLayout>

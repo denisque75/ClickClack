@@ -14,4 +14,6 @@
     <string name="plus">+</string>
     <string name="enter_your_phone_number">Enter your phone number</string>
     <string name="title_activity_inherit_chat">InheritChat</string>
+    <string name="search">Search</string>
+    <string name="remove_history">Remove History</string>
 </resources>

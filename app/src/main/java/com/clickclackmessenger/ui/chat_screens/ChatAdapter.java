@@ -1,7 +1,5 @@
 package com.clickclackmessenger.ui.chat_screens;
 
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +10,7 @@ import android.widget.TextView;
 import com.clickclackmessenger.R;
 import com.clickclackmessenger.entities.chats.Chat;
 import com.clickclackmessenger.entities.users.Interlocutor;
+import com.clickclackmessenger.utils.ImageUtils;
 
 import java.util.List;
 
@@ -79,11 +78,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             time.setText(chat.getFormattedTime());
             char firstLetter = chat.getName().toLowerCase().charAt(0);
 
-            Resources resources = imageView.getResources();
-            int vectorId = resources.getIdentifier(Constants.IMAGE_STUB + firstLetter, "drawable", "com.clickclackmessenger");
-
-            Drawable drawable = resources.getDrawable(vectorId, null);
-            imageView.setImageDrawable(drawable);
+            imageView.setImageDrawable(ImageUtils.getDefaultUserImage(imageView.getResources(), firstLetter));
         }
     }
 }

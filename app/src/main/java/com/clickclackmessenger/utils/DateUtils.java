@@ -3,10 +3,10 @@ package com.clickclackmessenger.utils;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-public class Utils {
+public class DateUtils {
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
 
-    private Utils() {
+    private DateUtils() {
     }
 
     public static String getFormattedDate(long time) {
