@@ -1,0 +1,89 @@
+package com.clickclackmessenger.ui.contacts;
+
+import android.content.Context;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.SimpleCursorAdapter;
+
+import com.clickclackmessenger.R;
+
+
+public class ContactsFragment extends Fragment {
+    private final static String[] FROM_COLUMNS = {
+            ContactsContract.Contacts.DISPLAY_NAME_PRIMARY
+    };
+    private final static int[] TO_IDS = {
+            R.id.contact__name, R.id.contact__number
+    };
+    private OnFragmentInteractionListener mListener;
+    private RecyclerView recyclerView;
+    private SimpleCursorAdapter cursorAdapter;
+
+    public ContactsFragment() {
+        // Required empty public constructor
+    }
+
+    public static ContactsFragment newInstance() {
+        return new ContactsFragment();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_contacts, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        recyclerView = getActivity().findViewById(R.id.contact__recyclerView);
+        cursorAdapter = new SimpleCursorAdapter(getContext(), R.layout.contact_item, null, FROM_COLUMNS, TO_IDS, 0);
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
+}
