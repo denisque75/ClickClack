@@ -74,6 +74,11 @@ public class MessageAdapter extends RecyclerView.Adapter {
         return messageList.size();
     }
 
+    public void addMessage(Message message) {
+        messageList.add(message);
+        notifyItemChanged(messageList.size() - 1);
+    }
+
     private static class ReceivedViewHolder extends RecyclerView.ViewHolder {
         private CircleImageView circleImageView;
         private TextView messageTextView;
