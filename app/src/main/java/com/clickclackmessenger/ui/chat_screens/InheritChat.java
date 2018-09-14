@@ -61,6 +61,7 @@ public class InheritChat extends AppCompatActivity {
         String stringMessage = sendingEditText.getText().toString();
         adapter.addMessage(new Message(new BaseUser("Denys", "Telezhenko", "owner", ""), stringMessage, System.currentTimeMillis()));
         recyclerView.smoothScrollToPosition(adapter.getMaxPosition());
+        sendingEditText.setText("");
     }
 
     private void setUpRecyclerView() {

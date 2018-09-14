@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="end"
+    android:gravity="end|center"
     android:orientation="horizontal"
     android:paddingBottom="8dp">
 
@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
+        android:gravity="center"
         android:background="@drawable/sent_rounded_rectangle"
         android:orientation="horizontal">
 
@@ -20,7 +21,6 @@
             android:id="@+id/sent__text_message_body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:maxWidth="240dp"
             android:padding="8dp"
             android:text="@string/hi_man_how_are_you_stub"
