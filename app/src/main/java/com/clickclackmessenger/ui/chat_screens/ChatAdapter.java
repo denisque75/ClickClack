@@ -10,11 +10,8 @@ import android.widget.TextView;
 import com.clickclackmessenger.R;
 import com.clickclackmessenger.entities.chats.Chat;
 import com.clickclackmessenger.entities.users.Interlocutor;
-import com.clickclackmessenger.utils.ImageUtils;
 
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private List<Chat> chats;
@@ -25,9 +22,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         this.chatChosen = chatChosen;
     }
 
+    @NonNull
     @Override
-    public ChatAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+    public ChatAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                     int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.chat_item, parent, false);
@@ -55,14 +53,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         public final TextView name;
         public final TextView message;
         public final TextView time;
-        public final CircleImageView imageView;
+        public final TextView textImageView;
 
         public ViewHolder(View v) {
             super(v);
             name = v.findViewById(R.id.chat__user_name);
             message = v.findViewById(R.id.chat__message);
             time = v.findViewById(R.id.chat__time);
-            imageView = v.findViewById(R.id.chat__profile_image);
+            textImageView = v.findViewById(R.id.chat__profile_image);
 
         }
 
@@ -73,12 +71,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         }
 
         void bindItem(Chat chat) {
-            name.setText(chat.getName());
+            String username = chat.getBaseUser().getName() + " " + chat.getBaseUser().getLastName();
+            name.setText(username);
             message.setText(chat.getMessage());
             time.setText(chat.getFormattedTime());
-            char firstLetter = chat.getName().toLowerCase().charAt(0);
 
-            imageView.setImageDrawable(ImageUtils.getDefaultUserImage(imageView.getResources(), firstLetter));
+            String userInitials = chat.getBaseUser().getName().substring(0, 1) + chat.getBaseUser().getLastName().charAt(0);
+            textImageView.setText(userInitials);
         }
     }
 }

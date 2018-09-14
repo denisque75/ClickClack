@@ -16,4 +16,7 @@
     <string name="title_activity_inherit_chat">InheritChat</string>
     <string name="search">Search</string>
     <string name="remove_history">Remove History</string>
+    <string name="hi_man_how_are_you_stub">hi man, how are you?</string>
+    <string name="tine_stub">11:40</string>
+    <string name="name_stub">Jhon Newman</string>
 </resources>

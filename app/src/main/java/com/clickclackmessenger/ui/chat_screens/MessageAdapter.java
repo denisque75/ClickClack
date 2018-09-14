@@ -1,6 +1,5 @@
 package com.clickclackmessenger.ui.chat_screens;
 
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,20 +12,15 @@ import com.clickclackmessenger.entities.chats.Message;
 import com.clickclackmessenger.utils.DateUtils;
 
 import java.util.List;
-import java.util.Map;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
 
     private List<Message> messageList;
-    private Map<String, Drawable> avatarMap;
 
-    public MessageAdapter(List<Message> messageList, Map<String, Drawable> avatarMap) {
+    public MessageAdapter(List<Message> messageList) {
         this.messageList = messageList;
-        this.avatarMap = avatarMap;
     }
 
     @Override
@@ -64,7 +58,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 ((SentViewHolder) holder).bind(message);
                 break;
             case VIEW_TYPE_MESSAGE_RECEIVED:
-                ((ReceivedViewHolder) holder).bind(message, avatarMap.get(message.getSender().getId()));
+                ((ReceivedViewHolder) holder).bind(message);
                 break;
         }
     }
@@ -77,23 +71,29 @@ public class MessageAdapter extends RecyclerView.Adapter {
     public void addMessage(Message message) {
         messageList.add(message);
         notifyItemChanged(messageList.size() - 1);
+
+    }
+
+    public int getMaxPosition() {
+        return messageList.size() - 1;
     }
 
     private static class ReceivedViewHolder extends RecyclerView.ViewHolder {
-        private CircleImageView circleImageView;
+        private TextView textImageView;
         private TextView messageTextView;
         private TextView timeTextView;
 
         ReceivedViewHolder(View itemView) {
             super(itemView);
-            circleImageView = itemView.findViewById(R.id.received_message__image_message_profile);
+            textImageView = itemView.findViewById(R.id.received_message__image_message_profile);
             messageTextView = itemView.findViewById(R.id.received_message__text_message_body);
             timeTextView = itemView.findViewById(R.id.received_message__text_message_time);
 
         }
 
-        void bind(Message message, Drawable avatar) {
-            circleImageView.setImageDrawable(avatar);
+        void bind(Message message) {
+            String senderInitials = message.getSender().getName().substring(0, 1) + message.getSender().getLastName().charAt(0);
+            textImageView.setText(senderInitials);
 
             messageTextView.setText(message.getMessage());
             timeTextView.setText(DateUtils.getFormattedDate(message.getCreatedAt()));

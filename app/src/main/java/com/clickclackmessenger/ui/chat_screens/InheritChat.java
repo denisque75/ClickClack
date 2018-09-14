@@ -18,11 +18,8 @@ import com.clickclackmessenger.Stubs;
 import com.clickclackmessenger.entities.chats.Message;
 import com.clickclackmessenger.entities.users.BaseUser;
 import com.clickclackmessenger.entities.users.Interlocutor;
-import com.clickclackmessenger.utils.ImageUtils;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class InheritChat extends AppCompatActivity {
     public static final String INTERLOCUTOR = "INTERLOCUTOR";
@@ -43,12 +40,7 @@ public class InheritChat extends AppCompatActivity {
 
         setUpRecyclerView();
 
-        Map<String, Drawable> avatarMap = new HashMap<>();
-
-        char firstLetter = interlocutor.getName().toLowerCase().charAt(0);
-        Drawable ava = ImageUtils.getDefaultUserImage(getResources(), firstLetter);
-        avatarMap.put("12", ava);
-        adapter = new MessageAdapter(Stubs.getConversation(), avatarMap);
+        adapter = new MessageAdapter(Stubs.getConversation());
         recyclerView.setAdapter(adapter);
 
         try {
@@ -67,7 +59,8 @@ public class InheritChat extends AppCompatActivity {
 
     private void sendData(View view) {
         String stringMessage = sendingEditText.getText().toString();
-        adapter.addMessage(new Message(new BaseUser("Denys", "owner", ""), stringMessage, System.currentTimeMillis()));
+        adapter.addMessage(new Message(new BaseUser("Denys", "Telezhenko", "owner", ""), stringMessage, System.currentTimeMillis()));
+        recyclerView.smoothScrollToPosition(adapter.getMaxPosition());
     }
 
     private void setUpRecyclerView() {
@@ -81,14 +74,18 @@ public class InheritChat extends AppCompatActivity {
 
     private void setUpToolbar(String interlocutorName) {
         Toolbar toolbar = findViewById(R.id.inherit_chat__toolbar);
+
         TextView toolbarNameTextView = findViewById(R.id.inherit_chat__toolbar_username);
         toolbarNameTextView.setText(interlocutorName);
+
+        TextView textImage = findViewById(R.id.inherit_chat__textImage);
+        textImage.setText(interlocutorName.substring(0, 1));
+
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowTitleEnabled(false
-            );
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
         toolbar.setNavigationOnClickListener(this::backPressed);
