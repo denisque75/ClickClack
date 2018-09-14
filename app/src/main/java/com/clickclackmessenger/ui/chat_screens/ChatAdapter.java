@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.clickclackmessenger.R;
-import com.clickclackmessenger.entities.chats.Chat;
-import com.clickclackmessenger.entities.users.Interlocutor;
+import com.clickclackmessenger.core.entities.chats.Chat;
+import com.clickclackmessenger.core.entities.users.Interlocutor;
 
 import java.util.List;
 

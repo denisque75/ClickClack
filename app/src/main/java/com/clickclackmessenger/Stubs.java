@@ -1,8 +1,8 @@
 package com.clickclackmessenger;
 
-import com.clickclackmessenger.entities.chats.Chat;
-import com.clickclackmessenger.entities.chats.Message;
-import com.clickclackmessenger.entities.users.BaseUser;
+import com.clickclackmessenger.core.entities.chats.Chat;
+import com.clickclackmessenger.core.entities.chats.Message;
+import com.clickclackmessenger.core.entities.users.BaseUser;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

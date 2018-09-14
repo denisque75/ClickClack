@@ -1,6 +1,6 @@
-package com.clickclackmessenger.entities.chats;
+package com.clickclackmessenger.core.entities.chats;
 
-import com.clickclackmessenger.entities.users.BaseUser;
+import com.clickclackmessenger.core.entities.users.BaseUser;
 
 public class Chat {
     private BaseUser baseUser;

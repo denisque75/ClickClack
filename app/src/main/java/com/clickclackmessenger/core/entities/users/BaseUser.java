@@ -1,4 +1,4 @@
-package com.clickclackmessenger.entities.users;
+package com.clickclackmessenger.core.entities.users;
 
 public class BaseUser {
     private String name;

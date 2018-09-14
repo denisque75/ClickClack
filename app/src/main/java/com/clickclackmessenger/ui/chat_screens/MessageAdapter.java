@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.clickclackmessenger.R;
-import com.clickclackmessenger.entities.chats.Message;
+import com.clickclackmessenger.core.entities.chats.Message;
 import com.clickclackmessenger.utils.DateUtils;
 
 import java.util.List;

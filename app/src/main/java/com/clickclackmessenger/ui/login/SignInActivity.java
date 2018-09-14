@@ -1,11 +1,6 @@
 package com.clickclackmessenger.ui.login;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,13 +8,22 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.arellomobile.mvp.MvpAppCompatActivity;
+import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.clickclackmessenger.R;
+import com.clickclackmessenger.core.repositories.sign_in.SignInRepository;
+import com.clickclackmessenger.core.repositories.sign_in.SignInToFirebaseRepository;
+import com.clickclackmessenger.core.use_cases.signIn.ClickClackSignInUseCase;
+import com.clickclackmessenger.core.use_cases.signIn.SignInUseCase;
 import com.clickclackmessenger.ui.MainActivity;
+import com.clickclackmessenger.ui.login.presenter.SignInPresenter;
 import com.clickclackmessenger.ui.login.text_formatter.CodeListener;
 import com.clickclackmessenger.ui.login.text_formatter.CountryCodeTextFormatter;
 import com.clickclackmessenger.ui.login.text_formatter.PhoneTextFormatter;
+import com.google.firebase.auth.FirebaseUser;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignInActivity extends MvpAppCompatActivity implements SignInView {
     private static final String TAG = "SignInActivity";
     private String phoneNumber = "";
     private String countryCode = "";
@@ -27,6 +31,18 @@ public class SignInActivity extends AppCompatActivity {
     private EditText codeEditText;
     private EditText numberEditText;
     private EditText countryCodeEditText;
+
+
+    @InjectPresenter
+    SignInPresenter signInPresenter;
+
+    @ProvidePresenter
+    public SignInPresenter provideSignInPresenter() {
+        SignInRepository signInRepository = new SignInToFirebaseRepository();
+        SignInUseCase signInUseCase = new ClickClackSignInUseCase(signInRepository);
+        signInPresenter = new SignInPresenter(signInUseCase);
+        return signInPresenter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +61,8 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void onCodeFilled(String code) {
-        //todo someLogic
-        Toast.makeText(this, code, Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+        signInPresenter.sendCode(code);
+
     }
 
     private void changeFocus() {
@@ -66,19 +79,39 @@ public class SignInActivity extends AppCompatActivity {
         }
         Log.d(TAG, "numberDialed: numbers" + phoneNumber.length());
         if (!phoneNumber.isEmpty() && !countryCode.isEmpty()) {
-            //todo logic
-            someLogic();
+            signInPresenter.verifyPhoneStateNumber(countryCode + phoneNumber, this);
         }
     }
 
-    private void someLogic() {
+    @Override
+    public void showProgressbar() {
+        ProgressBar progressBar = findViewById(R.id.cellphone__progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
         ProgressBar progressBar = findViewById(R.id.cellphone__progress_bar);
         progressBar.setVisibility(View.GONE);
-        Toast.makeText(this, countryCode + phoneNumber, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showCodeField() {
         View view = findViewById(R.id.cellphone__phone_container);
         view.setVisibility(View.GONE);
 
         codeEditText.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void successEnterance(FirebaseUser firebaseUser) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public void invalidVerificationCode() {
+        Toast.makeText(this, "Verification code is invalid", Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,4 +1,4 @@
-package com.clickclackmessenger.entities.users;
+package com.clickclackmessenger.core.entities.users;
 
 import android.os.Parcel;
 import android.os.Parcelable;

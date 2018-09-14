@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.clickclackmessenger.R;
-import com.clickclackmessenger.entities.users.Interlocutor;
+import com.clickclackmessenger.core.entities.users.Interlocutor;
 import com.clickclackmessenger.ui.chat_screens.ChatAdapter;
 import com.clickclackmessenger.ui.chat_screens.ChatMainScreenFragment;
 import com.clickclackmessenger.ui.chat_screens.InheritChat;

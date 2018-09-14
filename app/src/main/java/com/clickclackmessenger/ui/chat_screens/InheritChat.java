@@ -15,9 +15,9 @@ import android.widget.TextView;
 
 import com.clickclackmessenger.R;
 import com.clickclackmessenger.Stubs;
-import com.clickclackmessenger.entities.chats.Message;
-import com.clickclackmessenger.entities.users.BaseUser;
-import com.clickclackmessenger.entities.users.Interlocutor;
+import com.clickclackmessenger.core.entities.chats.Message;
+import com.clickclackmessenger.core.entities.users.BaseUser;
+import com.clickclackmessenger.core.entities.users.Interlocutor;
 
 import java.io.IOException;
 
