@@ -8,6 +8,7 @@ import com.clickclackmessenger.core.callbak.NetworkCallback;
 import com.clickclackmessenger.core.use_cases.signIn.SignInUseCase;
 import com.clickclackmessenger.ui.login.SignInView;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -59,5 +60,9 @@ public class SignInPresenter extends MvpPresenter<SignInView> {
                 }
             }
         });
+    }
+
+    public boolean isDeviceAuthorized() {
+        return FirebaseAuth.getInstance().getCurrentUser() != null;
     }
 }

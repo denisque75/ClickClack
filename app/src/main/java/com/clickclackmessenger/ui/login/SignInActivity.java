@@ -47,8 +47,13 @@ public class SignInActivity extends MvpAppCompatActivity implements SignInView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
 
+        if (signInPresenter.isDeviceAuthorized()) {
+            Log.d(TAG, "device authorized");
+            startActivity(new Intent(this, MainActivity.class));
+        }
+
+        setContentView(R.layout.activity_sign_in);
         countryCodeEditText = findViewById(R.id.cellphone__country_code);
         countryCodeEditText.addTextChangedListener(new CountryCodeTextFormatter(this::numberDialed, this::changeFocus));
 
