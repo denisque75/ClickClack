@@ -8,7 +8,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="chat_main_screen_search_text">Search your friend</string>
     <string name="avatar_of_user_content_desc">Avatar of user</string>
-    <string name="name">Name</string>
     <string name="surname">Surname</string>
     <string name="enter_one_time_password_below">Enter one time password below</string>
     <string name="plus">+</string>
@@ -20,4 +19,7 @@
     <string name="tine_stub">11:40</string>
     <string name="name_stub">Jhon Newman</string>
     <string name="sign_out">Sign out</string>
+    <string name="name">Name</string>
+    <string name="last_name">Last name</string>
+    <string name="submit">Submit</string>
 </resources>
