@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.clickclackmessenger.core.callbak.NetworkCallback;
+import com.clickclackmessenger.core.repositories.db_repository.remote_db.SignInDBRepository;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -17,6 +18,12 @@ import java.util.concurrent.TimeUnit;
 
 public class SignInToFirebaseRepository implements SignInRepository {
     public static final int TIMEOUT = 20;
+
+    private final SignInDBRepository dbRepository;
+
+    public SignInToFirebaseRepository(SignInDBRepository dbRepository) {
+        this.dbRepository = dbRepository;
+    }
 
     private static final String TAG = "SignInToFirebaseReposit";
 
@@ -38,6 +45,7 @@ public class SignInToFirebaseRepository implements SignInRepository {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Log.d(TAG, "onComplete");
+                    dbRepository.saveUserToDB();
                     callback.onSuccess(task.getResult().getUser());
                 } else {
                     Log.e(TAG, "onFailure: ", task.getException());

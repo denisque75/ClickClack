@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.clickclackmessenger.R;
-import com.clickclackmessenger.Stubs;
 
 public class ChatMainScreenFragment extends Fragment {
     private ChatAdapter.OnChatChosen onChatChosen;
@@ -33,7 +32,7 @@ public class ChatMainScreenFragment extends Fragment {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(manager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(new ChatAdapter(Stubs.getChats(), onChatChosen));
+        recyclerView.setAdapter(new ChatAdapter(onChatChosen));
 
         return rootView;
     }

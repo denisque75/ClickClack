@@ -1,21 +1,10 @@
 package com.clickclackmessenger;
 
-import com.clickclackmessenger.core.entities.chats.Chat;
-import com.clickclackmessenger.core.entities.chats.Message;
-import com.clickclackmessenger.core.entities.users.BaseUser;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
 public class Stubs {
 
     private Stubs(){}
 
-    public static List<Chat> getChats(){
+    /*public static List<Chat> getChats(){
         List<Chat> chatList = new ArrayList<>();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
@@ -144,5 +133,5 @@ public class Stubs {
         messages.add(message);
 
         return messages;
-    }
+    }*/
 }

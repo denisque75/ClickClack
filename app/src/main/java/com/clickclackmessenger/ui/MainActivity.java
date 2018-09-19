@@ -13,6 +13,7 @@ import com.clickclackmessenger.core.entities.users.Interlocutor;
 import com.clickclackmessenger.ui.chat_screens.ChatAdapter;
 import com.clickclackmessenger.ui.chat_screens.ChatMainScreenFragment;
 import com.clickclackmessenger.ui.chat_screens.InheritChat;
+import com.clickclackmessenger.ui.users_page.UsersPageFragment;
 
 public class MainActivity extends AppCompatActivity implements ChatAdapter.OnChatChosen {
 
@@ -43,13 +44,18 @@ public class MainActivity extends AppCompatActivity implements ChatAdapter.OnCha
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_chats:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.activity_main__fragment_container, ChatMainScreenFragment.newInstance()).commit();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.activity_main__fragment_container, ChatMainScreenFragment.newInstance())
+                            .commit();
                     return true;
                 case R.id.navigation_contacts:
                     //mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_settings:
-                    //mTextMessage.setText(R.string.title_notifications);
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.activity_main__fragment_container, UsersPageFragment.newInstance())
+                            .commit();
                     return true;
             }
             return false;
@@ -59,4 +65,6 @@ public class MainActivity extends AppCompatActivity implements ChatAdapter.OnCha
 
         }
     }
+
+
 }

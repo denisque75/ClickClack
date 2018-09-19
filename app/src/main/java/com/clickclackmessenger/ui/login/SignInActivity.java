@@ -12,6 +12,10 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.clickclackmessenger.R;
+import com.clickclackmessenger.core.repositories.db_repository.remote_db.FirebaseSignInDBRepository;
+import com.clickclackmessenger.core.repositories.db_repository.remote_db.SignInDBRepository;
+import com.clickclackmessenger.core.repositories.db_repository.shared_pref.SharedPrefRepository;
+import com.clickclackmessenger.core.repositories.db_repository.shared_pref.UserSharedPrefRepository;
 import com.clickclackmessenger.core.repositories.sign_in.SignInRepository;
 import com.clickclackmessenger.core.repositories.sign_in.SignInToFirebaseRepository;
 import com.clickclackmessenger.core.use_cases.signIn.ClickClackSignInUseCase;
@@ -22,6 +26,7 @@ import com.clickclackmessenger.ui.login.text_formatter.CodeListener;
 import com.clickclackmessenger.ui.login.text_formatter.CountryCodeTextFormatter;
 import com.clickclackmessenger.ui.login.text_formatter.PhoneTextFormatter;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignInActivity extends MvpAppCompatActivity implements SignInView {
     private static final String TAG = "SignInActivity";
@@ -38,8 +43,10 @@ public class SignInActivity extends MvpAppCompatActivity implements SignInView {
 
     @ProvidePresenter
     public SignInPresenter provideSignInPresenter() {
-        SignInRepository signInRepository = new SignInToFirebaseRepository();
-        SignInUseCase signInUseCase = new ClickClackSignInUseCase(signInRepository);
+        SharedPrefRepository sharedPrefRepository = new UserSharedPrefRepository(getSharedPreferences(UserSharedPrefRepository.SHARED_PREF_NAME, MODE_PRIVATE));
+        SignInDBRepository signInDBRepository = new FirebaseSignInDBRepository(FirebaseDatabase.getInstance().getReference(), sharedPrefRepository);
+        SignInRepository signInRepository = new SignInToFirebaseRepository(signInDBRepository);
+        SignInUseCase signInUseCase = new ClickClackSignInUseCase(signInRepository, sharedPrefRepository);
         signInPresenter = new SignInPresenter(signInUseCase);
         return signInPresenter;
     }
@@ -50,7 +57,8 @@ public class SignInActivity extends MvpAppCompatActivity implements SignInView {
 
         if (signInPresenter.isDeviceAuthorized()) {
             Log.d(TAG, "device authorized");
-            startActivity(new Intent(this, MainActivity.class));
+
+            openMainActivity();
         }
 
         setContentView(R.layout.activity_sign_in);
@@ -63,6 +71,12 @@ public class SignInActivity extends MvpAppCompatActivity implements SignInView {
         codeEditText = findViewById(R.id.cellphone__code);
         codeEditText.addTextChangedListener(new CodeListener(this::onCodeFilled));
 
+    }
+
+    private void openMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private void onCodeFilled(String code) {
@@ -110,9 +124,7 @@ public class SignInActivity extends MvpAppCompatActivity implements SignInView {
 
     @Override
     public void successEnterance(FirebaseUser firebaseUser) {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+        openMainActivity();
     }
 
     @Override

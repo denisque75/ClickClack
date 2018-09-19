@@ -19,6 +19,10 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
     private List<Message> messageList;
 
+    public MessageAdapter() {
+
+    }
+
     public MessageAdapter(List<Message> messageList) {
         this.messageList = messageList;
     }
