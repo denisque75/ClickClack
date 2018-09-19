@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.clickclackmessenger.R;
-import com.clickclackmessenger.entities.chats.Message;
+import com.clickclackmessenger.core.entities.chats.Message;
 import com.clickclackmessenger.utils.DateUtils;
 
 import java.util.List;
@@ -18,6 +18,10 @@ public class MessageAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
 
     private List<Message> messageList;
+
+    public MessageAdapter() {
+
+    }
 
     public MessageAdapter(List<Message> messageList) {
         this.messageList = messageList;

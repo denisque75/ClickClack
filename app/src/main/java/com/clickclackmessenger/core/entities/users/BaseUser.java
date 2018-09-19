@@ -1,16 +1,18 @@
-package com.clickclackmessenger.entities.users;
+package com.clickclackmessenger.core.entities.users;
 
 public class BaseUser {
     private String name;
     private String lastName;
     private String id;
     private String profileURL;
+    private String phoneNumber;
 
     public BaseUser() {
     }
 
-    public BaseUser(String name, String lastName, String id, String profileURL) {
+    public BaseUser(String name, String lastName, String id, String profileURL, String phoneNumber) {
         this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
         this.name = name;
         this.id = id;
         this.profileURL = profileURL;
@@ -46,5 +48,13 @@ public class BaseUser {
 
     public void setProfileURL(String profileURL) {
         this.profileURL = profileURL;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

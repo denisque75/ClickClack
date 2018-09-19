@@ -3,7 +3,7 @@
     package="com.clickclackmessenger">
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -23,7 +23,7 @@
         <activity
             android:name=".ui.chat_screens.InheritChat"
             android:label="@string/title_activity_inherit_chat"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

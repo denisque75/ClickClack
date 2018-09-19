@@ -8,18 +8,24 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.clickclackmessenger.R;
-import com.clickclackmessenger.entities.chats.Chat;
-import com.clickclackmessenger.entities.users.Interlocutor;
+import com.clickclackmessenger.core.entities.chats.Chat;
+import com.clickclackmessenger.core.entities.users.Interlocutor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
-    private List<Chat> chats;
-    private OnChatChosen chatChosen;
+    private final List<Chat> chats;
+    private final OnChatChosen chatChosen;
 
     public ChatAdapter(List<Chat> chats, OnChatChosen chatChosen) {
         this.chats = chats;
         this.chatChosen = chatChosen;
+    }
+
+    public ChatAdapter(OnChatChosen chatChosen) {
+        this.chatChosen = chatChosen;
+        this.chats = new ArrayList<>();
     }
 
     @NonNull

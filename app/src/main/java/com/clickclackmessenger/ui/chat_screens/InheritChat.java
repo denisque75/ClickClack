@@ -14,10 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.clickclackmessenger.R;
-import com.clickclackmessenger.Stubs;
-import com.clickclackmessenger.entities.chats.Message;
-import com.clickclackmessenger.entities.users.BaseUser;
-import com.clickclackmessenger.entities.users.Interlocutor;
+import com.clickclackmessenger.core.entities.chats.Message;
+import com.clickclackmessenger.core.entities.users.Interlocutor;
 
 import java.io.IOException;
 
@@ -40,7 +38,7 @@ public class InheritChat extends AppCompatActivity {
 
         setUpRecyclerView();
 
-        adapter = new MessageAdapter(Stubs.getConversation());
+        adapter = new MessageAdapter();
         recyclerView.setAdapter(adapter);
 
         try {
@@ -59,7 +57,7 @@ public class InheritChat extends AppCompatActivity {
 
     private void sendData(View view) {
         String stringMessage = sendingEditText.getText().toString();
-        adapter.addMessage(new Message(new BaseUser("Denys", "Telezhenko", "owner", ""), stringMessage, System.currentTimeMillis()));
+        adapter.addMessage(new Message(null, stringMessage, System.currentTimeMillis()));
         recyclerView.smoothScrollToPosition(adapter.getMaxPosition());
         sendingEditText.setText("");
     }
