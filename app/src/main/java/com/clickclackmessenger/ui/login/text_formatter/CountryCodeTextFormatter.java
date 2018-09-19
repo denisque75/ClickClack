@@ -4,7 +4,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 
-import com.clickclackmessenger.ui.login.OnNumberDialed;
+import com.clickclackmessenger.ui.login.sign_in.OnNumberDialed;
 
 public class CountryCodeTextFormatter implements TextWatcher {
     private static final String TAG = "CountryCodeTextFormatte";

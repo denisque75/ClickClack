@@ -1,4 +1,4 @@
-package com.clickclackmessenger.ui.login;
+package com.clickclackmessenger.ui.login.sign_in;
 
 public interface OnNumberDialed {
 

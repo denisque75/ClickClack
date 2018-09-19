@@ -8,6 +8,8 @@ import android.util.Log;
 
 import com.clickclackmessenger.R;
 import com.clickclackmessenger.ui.MainActivity;
+import com.clickclackmessenger.ui.login.registration.RegistrationFragment;
+import com.clickclackmessenger.ui.login.sign_in.SignInFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignInActivity extends AppCompatActivity implements SignInFragment.SignInCallback {

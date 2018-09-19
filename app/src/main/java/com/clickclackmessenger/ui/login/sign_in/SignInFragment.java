@@ -1,4 +1,4 @@
-package com.clickclackmessenger.ui.login;
+package com.clickclackmessenger.ui.login.sign_in;
 
 
 import android.content.Context;
@@ -26,7 +26,7 @@ import com.clickclackmessenger.core.repositories.sign_in.SignInToFirebaseReposit
 import com.clickclackmessenger.core.use_cases.signIn.ClickClackSignInUseCase;
 import com.clickclackmessenger.core.use_cases.signIn.SignInUseCase;
 import com.clickclackmessenger.ui.MainActivity;
-import com.clickclackmessenger.ui.login.presenter.SignInPresenter;
+import com.clickclackmessenger.ui.login.sign_in.presenter.SignInPresenter;
 import com.clickclackmessenger.ui.login.text_formatter.CodeListener;
 import com.clickclackmessenger.ui.login.text_formatter.CountryCodeTextFormatter;
 import com.clickclackmessenger.ui.login.text_formatter.PhoneTextFormatter;

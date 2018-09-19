@@ -1,4 +1,4 @@
-package com.clickclackmessenger.ui.login;
+package com.clickclackmessenger.ui.login.sign_in;
 
 import com.arellomobile.mvp.MvpView;
 import com.google.firebase.auth.FirebaseUser;

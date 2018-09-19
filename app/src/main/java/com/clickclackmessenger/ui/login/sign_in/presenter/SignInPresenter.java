@@ -1,4 +1,4 @@
-package com.clickclackmessenger.ui.login.presenter;
+package com.clickclackmessenger.ui.login.sign_in.presenter;
 
 import android.app.Activity;
 import android.util.Log;
@@ -9,7 +9,7 @@ import com.clickclackmessenger.core.callbacks.NetworkCallback;
 import com.clickclackmessenger.core.callbacks.NewUserCallback;
 import com.clickclackmessenger.core.entities.users.BaseUser;
 import com.clickclackmessenger.core.use_cases.signIn.SignInUseCase;
-import com.clickclackmessenger.ui.login.SignInView;
+import com.clickclackmessenger.ui.login.sign_in.SignInView;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;

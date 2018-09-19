@@ -1,4 +1,4 @@
-package com.clickclackmessenger.ui.login;
+package com.clickclackmessenger.ui.login.registration;
 
 import com.arellomobile.mvp.MvpView;
 
