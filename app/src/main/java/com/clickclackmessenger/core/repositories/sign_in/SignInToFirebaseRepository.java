@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.clickclackmessenger.core.callbak.NetworkCallback;
+import com.clickclackmessenger.core.callbacks.NetworkCallback;
+import com.clickclackmessenger.core.callbacks.NewUserCallback;
 import com.clickclackmessenger.core.repositories.db_repository.remote_db.SignInDBRepository;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,14 +39,14 @@ public class SignInToFirebaseRepository implements SignInRepository {
     }
 
     @Override
-    public void verifyCode(String verificationId, String code, NetworkCallback<FirebaseUser> callback) {
+    public void verifyCode(String verificationId, String code, NewUserCallback userCallback, NetworkCallback<FirebaseUser> callback) {
         PhoneAuthCredential authCredential = PhoneAuthProvider.getCredential(verificationId, code);
         FirebaseAuth.getInstance().signInWithCredential(authCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Log.d(TAG, "onComplete");
-                    dbRepository.saveUserToDB();
+                    dbRepository.saveUserToDB(userCallback);
                     callback.onSuccess(task.getResult().getUser());
                 } else {
                     Log.e(TAG, "onFailure: ", task.getException());

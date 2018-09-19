@@ -11,7 +11,7 @@ public interface SignInView extends MvpView {
 
     void showCodeField();
 
-    void successEnterance(FirebaseUser firebaseUser);
+    void successLogin(FirebaseUser firebaseUser);
 
     void invalidVerificationCode();
 }

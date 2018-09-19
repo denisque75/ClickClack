@@ -1,4 +1,4 @@
-package com.clickclackmessenger.core.callbak;
+package com.clickclackmessenger.core.callbacks;
 
 public interface NetworkCallback<T> {
 

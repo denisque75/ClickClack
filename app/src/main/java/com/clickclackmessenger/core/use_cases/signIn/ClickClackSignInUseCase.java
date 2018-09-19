@@ -2,7 +2,8 @@ package com.clickclackmessenger.core.use_cases.signIn;
 
 import android.app.Activity;
 
-import com.clickclackmessenger.core.callbak.NetworkCallback;
+import com.clickclackmessenger.core.callbacks.NetworkCallback;
+import com.clickclackmessenger.core.callbacks.NewUserCallback;
 import com.clickclackmessenger.core.entities.users.BaseUser;
 import com.clickclackmessenger.core.repositories.db_repository.shared_pref.SharedPrefRepository;
 import com.clickclackmessenger.core.repositories.sign_in.SignInRepository;
@@ -24,8 +25,8 @@ public class ClickClackSignInUseCase implements SignInUseCase {
     }
 
     @Override
-    public void verifyCode(String verificationId, String code, NetworkCallback<FirebaseUser> callback) {
-        signInRepository.verifyCode(verificationId, code, callback);
+    public void verifyCode(String verificationId, String code, NewUserCallback userCallback, NetworkCallback<FirebaseUser> callback) {
+        signInRepository.verifyCode(verificationId, code, userCallback, callback);
     }
 
     @Override

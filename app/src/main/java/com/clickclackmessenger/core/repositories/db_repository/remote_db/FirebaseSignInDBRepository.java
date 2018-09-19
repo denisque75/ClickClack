@@ -2,6 +2,7 @@ package com.clickclackmessenger.core.repositories.db_repository.remote_db;
 
 import android.support.annotation.NonNull;
 
+import com.clickclackmessenger.core.callbacks.NewUserCallback;
 import com.clickclackmessenger.core.entities.users.BaseUser;
 import com.clickclackmessenger.core.repositories.db_repository.shared_pref.SharedPrefRepository;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,7 +22,7 @@ public class FirebaseSignInDBRepository implements SignInDBRepository {
     }
 
     @Override
-    public void saveUserToDB() {
+    public void saveUserToDB(NewUserCallback userCallback) {
         Query getUserQuery = database.child("users").child(FirebaseAuth.getInstance().getUid());
 
         BaseUser user = sharedPrefRepository.readUser();
@@ -34,7 +35,9 @@ public class FirebaseSignInDBRepository implements SignInDBRepository {
                     dataSnapshot.getRef().child("phoneNumber").setValue(user.getPhoneNumber());
                     dataSnapshot.getRef().child("name").setValue(user.getName());
                     dataSnapshot.getRef().child("lastName").setValue(user.getLastName());
-
+                    userCallback.newUser(true);
+                } else {
+                    userCallback.newUser(false);
                 }
             }
 
