@@ -12,13 +12,16 @@ import com.clickclackmessenger.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FirstTimeUserFragment extends Fragment {
+public class RegistrationFragment extends Fragment {
+    public static final String REGISTRATION_FRAGMENT = "registrationFragment";
 
-
-    public FirstTimeUserFragment() {
+    public RegistrationFragment() {
         // Required empty public constructor
     }
 
+    public static RegistrationFragment newInstance() {
+        return new RegistrationFragment();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,5 +29,4 @@ public class FirstTimeUserFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_first_time_user, container, false);
     }
-
 }

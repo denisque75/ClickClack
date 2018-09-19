@@ -41,7 +41,14 @@ public class SignInActivity extends AppCompatActivity implements SignInFragment.
 
     @Override
     public void openRegistrationFragment() {
-
+        RegistrationFragment registrationFragment = (RegistrationFragment) getSupportFragmentManager().findFragmentByTag(RegistrationFragment.REGISTRATION_FRAGMENT);
+        if (registrationFragment == null) {
+            registrationFragment = RegistrationFragment.newInstance();
+        }
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.sign_in__container, registrationFragment, RegistrationFragment.REGISTRATION_FRAGMENT)
+                .commit();
     }
 
     @Override
