@@ -2,6 +2,7 @@ package com.clickclackmessenger.core.repositories.db_repository.shared_pref;
 
 import android.content.SharedPreferences;
 
+import com.clickclackmessenger.core.dto.UserName;
 import com.clickclackmessenger.core.entities.users.BaseUser;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -46,5 +47,18 @@ public class UserSharedPrefRepository implements SharedPrefRepository {
         baseUser.setName(sharedPreferences.getString(NAME, ""));
         baseUser.setLastName(sharedPreferences.getString(LAST_NAME, ""));
         return baseUser;
+    }
+
+    @Override
+    public void editUserName(UserName userName) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        if (userName.getName() != null && !userName.getName().equals("")) {
+            editor.putString(NAME, userName.getName());
+        }
+
+        if (userName.getLastName() != null && !userName.getLastName().equals("")) {
+            editor.putString(LAST_NAME, userName.getLastName());
+        }
+        editor.apply();
     }
 }

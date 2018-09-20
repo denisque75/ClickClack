@@ -12,9 +12,10 @@ import com.clickclackmessenger.ui.login.registration.RegistrationFragment;
 import com.clickclackmessenger.ui.login.sign_in.SignInFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class SignInActivity extends AppCompatActivity implements SignInFragment.SignInCallback {
-    private static final String TAG = "SignInActivity";
+public class SignInActivity extends AppCompatActivity implements SignInFragment.SignInCallback,
+        RegistrationFragment.RegistrationCallback {
 
+    private static final String TAG = "SignInActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

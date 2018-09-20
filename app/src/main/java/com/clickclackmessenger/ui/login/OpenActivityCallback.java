@@ -1,4 +1,4 @@
-package com.clickclackmessenger.ui.login.sign_in;
+package com.clickclackmessenger.ui.login;
 
 import android.app.Activity;
 

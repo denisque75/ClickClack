@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.clickclackmessenger.core.callbacks.NewUserCallback;
 import com.clickclackmessenger.core.entities.users.BaseUser;
+import com.clickclackmessenger.core.fb_constants.FBConstantsDB;
 import com.clickclackmessenger.core.repositories.db_repository.shared_pref.SharedPrefRepository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -23,7 +24,7 @@ public class FirebaseSignInDBRepository implements SignInDBRepository {
 
     @Override
     public void saveUserToDB(NewUserCallback userCallback) {
-        Query getUserQuery = database.child("users").child(FirebaseAuth.getInstance().getUid());
+        Query getUserQuery = database.child(FBConstantsDB.PATH_USER).child(FirebaseAuth.getInstance().getUid());
 
         BaseUser user = sharedPrefRepository.readUser();
 
@@ -32,9 +33,9 @@ public class FirebaseSignInDBRepository implements SignInDBRepository {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 BaseUser baseUser = dataSnapshot.getValue(BaseUser.class);
                 if (baseUser == null) {
-                    dataSnapshot.getRef().child("phoneNumber").setValue(user.getPhoneNumber());
-                    dataSnapshot.getRef().child("name").setValue(user.getName());
-                    dataSnapshot.getRef().child("lastName").setValue(user.getLastName());
+                    dataSnapshot.getRef().child(FBConstantsDB.USERS.PHONE_NUMBER).setValue(user.getPhoneNumber());
+                    dataSnapshot.getRef().child(FBConstantsDB.USERS.NAME).setValue(user.getName());
+                    dataSnapshot.getRef().child(FBConstantsDB.USERS.LAST_NAME).setValue(user.getLastName());
                     userCallback.newUser(true);
                 } else {
                     userCallback.newUser(false);

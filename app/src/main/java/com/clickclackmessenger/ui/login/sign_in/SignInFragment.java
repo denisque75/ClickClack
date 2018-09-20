@@ -26,6 +26,7 @@ import com.clickclackmessenger.core.repositories.sign_in.SignInToFirebaseReposit
 import com.clickclackmessenger.core.use_cases.signIn.ClickClackSignInUseCase;
 import com.clickclackmessenger.core.use_cases.signIn.SignInUseCase;
 import com.clickclackmessenger.ui.MainActivity;
+import com.clickclackmessenger.ui.login.OpenActivityCallback;
 import com.clickclackmessenger.ui.login.sign_in.presenter.SignInPresenter;
 import com.clickclackmessenger.ui.login.text_formatter.CodeListener;
 import com.clickclackmessenger.ui.login.text_formatter.CountryCodeTextFormatter;
@@ -112,6 +113,12 @@ public class SignInFragment extends MvpAppCompatFragment implements SignInView {
         } else {
             throw new IllegalArgumentException("Parent must inherit SignInCallback");
         }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        signInCallback = null;
     }
 
     private void changeFocus() {
