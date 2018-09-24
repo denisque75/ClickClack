@@ -6,6 +6,8 @@ import com.clickclackmessenger.core.dto.UserName;
 import com.clickclackmessenger.core.entities.users.BaseUser;
 import com.google.firebase.auth.FirebaseAuth;
 
+import javax.inject.Inject;
+
 public class UserSharedPrefRepository implements SharedPrefRepository {
     public static final String PHONE_NUMBER = "phone.number";
     public static final String NAME = "user.name";
@@ -15,6 +17,7 @@ public class UserSharedPrefRepository implements SharedPrefRepository {
 
     private final SharedPreferences sharedPreferences;
 
+    @Inject
     public UserSharedPrefRepository(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
     }

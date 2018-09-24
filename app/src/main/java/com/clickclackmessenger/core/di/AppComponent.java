@@ -1,5 +1,6 @@
 package com.clickclackmessenger.core.di;
 
+import com.clickclackmessenger.core.di.components.RegistrationComponent;
 import com.clickclackmessenger.core.di.components.SignInComponent;
 import com.clickclackmessenger.core.di.modules.AppModule;
 import com.clickclackmessenger.core.di.modules.RepositoryModule;
@@ -18,4 +19,6 @@ import dagger.Component;
 public interface AppComponent {
 
     SignInComponent plus(SignInComponent.Module module);
+
+    RegistrationComponent plus(RegistrationComponent.Module module);
 }

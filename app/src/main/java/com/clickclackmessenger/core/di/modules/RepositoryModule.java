@@ -2,6 +2,7 @@ package com.clickclackmessenger.core.di.modules;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.clickclackmessenger.core.repositories.db_repository.remote_db.FirebaseSignInDBRepository;
 import com.clickclackmessenger.core.repositories.db_repository.remote_db.SignInDBRepository;
@@ -9,6 +10,8 @@ import com.clickclackmessenger.core.repositories.db_repository.shared_pref.Share
 import com.clickclackmessenger.core.repositories.db_repository.shared_pref.UserSharedPrefRepository;
 import com.clickclackmessenger.core.repositories.sign_in.SignInRepository;
 import com.clickclackmessenger.core.repositories.sign_in.SignInToFirebaseRepository;
+import com.clickclackmessenger.core.repositories.user_remote_repository.FirebaseUserRepository;
+import com.clickclackmessenger.core.repositories.user_remote_repository.UserRepository;
 import com.google.firebase.database.FirebaseDatabase;
 
 import javax.inject.Singleton;
@@ -21,8 +24,14 @@ public class RepositoryModule {
 
     @Provides
     @Singleton
-    SharedPrefRepository provideSharedPrefRepository(Application application) {
-        return new UserSharedPrefRepository(application.getSharedPreferences(UserSharedPrefRepository.SHARED_PREF_NAME, Context.MODE_PRIVATE));
+    SharedPreferences provideSharedPreferences(Application application) {
+        return application.getSharedPreferences(UserSharedPrefRepository.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+    }
+
+    @Provides
+    @Singleton
+    SharedPrefRepository provideSharedPrefRepository(SharedPreferences sharedPreferences) {
+        return new UserSharedPrefRepository(sharedPreferences);
     }
 
     @Provides
@@ -35,5 +44,11 @@ public class RepositoryModule {
     @Singleton
     SignInRepository provideSignInRepository(SignInDBRepository signInDBRepository) {
         return new SignInToFirebaseRepository(signInDBRepository);
+    }
+
+    @Provides
+    @Singleton
+    UserRepository provideUserRepository() {
+        return new FirebaseUserRepository(FirebaseDatabase.getInstance().getReference());
     }
 }

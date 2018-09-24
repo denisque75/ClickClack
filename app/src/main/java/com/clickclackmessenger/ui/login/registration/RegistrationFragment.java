@@ -13,17 +13,14 @@ import android.widget.EditText;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
+import com.clickclackmessenger.App;
 import com.clickclackmessenger.R;
-import com.clickclackmessenger.core.repositories.db_repository.shared_pref.SharedPrefRepository;
-import com.clickclackmessenger.core.repositories.db_repository.shared_pref.UserSharedPrefRepository;
-import com.clickclackmessenger.core.repositories.user_remote_repository.FirebaseUserRepository;
-import com.clickclackmessenger.core.repositories.user_remote_repository.UserRepository;
-import com.clickclackmessenger.core.use_cases.change_name_use_case.ChangeNameUseCase;
-import com.clickclackmessenger.core.use_cases.change_name_use_case.ClickClackUserNameUseCase;
+import com.clickclackmessenger.core.di.components.RegistrationComponent;
 import com.clickclackmessenger.ui.MainActivity;
 import com.clickclackmessenger.ui.login.OpenActivityCallback;
 import com.clickclackmessenger.ui.login.registration.presenter.RegistrationPresenter;
-import com.google.firebase.database.FirebaseDatabase;
+
+import javax.inject.Inject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,19 +28,20 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RegistrationFragment extends MvpAppCompatFragment implements RegistrationView {
     public static final String REGISTRATION_FRAGMENT = "registrationFragment";
 
+    @Inject
     @InjectPresenter
     RegistrationPresenter registrationPresenter;
+
     private EditText name;
     private EditText lastName;
     private RegistrationCallback callback;
 
     @ProvidePresenter
     public RegistrationPresenter provideRegistrationPresenter() {
-        UserRepository userRepository = new FirebaseUserRepository(FirebaseDatabase.getInstance().getReference());
-        SharedPrefRepository sharedPrefRepository = new UserSharedPrefRepository(getActivity()
-                .getSharedPreferences(UserSharedPrefRepository.SHARED_PREF_NAME, Context.MODE_PRIVATE));
-        ChangeNameUseCase changeNameUseCase = new ClickClackUserNameUseCase(sharedPrefRepository, userRepository);
-        return new RegistrationPresenter(changeNameUseCase);
+        App.injector()
+                .plus(new RegistrationComponent.Module())
+                .inject(this);
+        return registrationPresenter;
     }
 
     public RegistrationFragment() {
