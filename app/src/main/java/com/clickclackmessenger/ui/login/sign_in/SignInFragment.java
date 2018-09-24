@@ -4,6 +4,7 @@ package com.clickclackmessenger.ui.login.sign_in;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,15 +17,9 @@ import android.widget.Toast;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
+import com.clickclackmessenger.App;
 import com.clickclackmessenger.R;
-import com.clickclackmessenger.core.repositories.db_repository.remote_db.FirebaseSignInDBRepository;
-import com.clickclackmessenger.core.repositories.db_repository.remote_db.SignInDBRepository;
-import com.clickclackmessenger.core.repositories.db_repository.shared_pref.SharedPrefRepository;
-import com.clickclackmessenger.core.repositories.db_repository.shared_pref.UserSharedPrefRepository;
-import com.clickclackmessenger.core.repositories.sign_in.SignInRepository;
-import com.clickclackmessenger.core.repositories.sign_in.SignInToFirebaseRepository;
-import com.clickclackmessenger.core.use_cases.signIn.ClickClackSignInUseCase;
-import com.clickclackmessenger.core.use_cases.signIn.SignInUseCase;
+import com.clickclackmessenger.core.di.components.SignInComponent;
 import com.clickclackmessenger.ui.MainActivity;
 import com.clickclackmessenger.ui.login.OpenActivityCallback;
 import com.clickclackmessenger.ui.login.sign_in.presenter.SignInPresenter;
@@ -32,9 +27,8 @@ import com.clickclackmessenger.ui.login.text_formatter.CodeListener;
 import com.clickclackmessenger.ui.login.text_formatter.CountryCodeTextFormatter;
 import com.clickclackmessenger.ui.login.text_formatter.PhoneTextFormatter;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
-import static android.content.Context.MODE_PRIVATE;
+import javax.inject.Inject;
 
 
 /**
@@ -43,8 +37,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class SignInFragment extends MvpAppCompatFragment implements SignInView {
     public static final String FRAGMENT_TAG = "signInFragment";
     private static final String TAG = "SignInFragment";
-    @InjectPresenter
-    SignInPresenter signInPresenter;
+
     private SignInCallback signInCallback;
     private String phoneNumber = "";
     private String countryCode = "";
@@ -54,22 +47,35 @@ public class SignInFragment extends MvpAppCompatFragment implements SignInView {
     private ProgressBar progressBar;
     private View cellphoneContainer;
 
-    public static SignInFragment newInstance() {
-        return new SignInFragment();
-    }
+    @InjectPresenter
+    @Inject
+    SignInPresenter signInPresenter;
 
     public SignInFragment() {
         // Required empty public constructor
     }
 
+    public static SignInFragment newInstance() {
+        return new SignInFragment();
+    }
+
     @ProvidePresenter
     public SignInPresenter provideSignInPresenter() {
-        SharedPrefRepository sharedPrefRepository = new UserSharedPrefRepository(getActivity().getSharedPreferences(UserSharedPrefRepository.SHARED_PREF_NAME, MODE_PRIVATE));
+        /*SharedPrefRepository sharedPrefRepository = new UserSharedPrefRepository(getActivity().getSharedPreferences(UserSharedPrefRepository.SHARED_PREF_NAME, MODE_PRIVATE));
         SignInDBRepository signInDBRepository = new FirebaseSignInDBRepository(FirebaseDatabase.getInstance().getReference(), sharedPrefRepository);
         SignInRepository signInRepository = new SignInToFirebaseRepository(signInDBRepository);
         SignInUseCase signInUseCase = new ClickClackSignInUseCase(signInRepository, sharedPrefRepository);
-        signInPresenter = new SignInPresenter(signInUseCase);
+        signInPresenter = new SignInPresenter(signInUseCase);*/
+        App.injector()
+                .plus(new SignInComponent.Module())
+                .inject(this);
         return signInPresenter;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        // ((App)getActivity().getApplication()).getSignInComponent().inject(this);
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
