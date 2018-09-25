@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.chat_screens.InheritChat">
+    tools:context=".ui.chat_screens.InheritChatActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/inherit_chat__appBarLayout"

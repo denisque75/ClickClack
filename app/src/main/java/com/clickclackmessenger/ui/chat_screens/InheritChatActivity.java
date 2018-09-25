@@ -19,7 +19,7 @@ import com.clickclackmessenger.core.entities.users.Interlocutor;
 
 import java.io.IOException;
 
-public class InheritChat extends AppCompatActivity {
+public class InheritChatActivity extends AppCompatActivity {
     public static final String INTERLOCUTOR = "INTERLOCUTOR";
 
     private EditText sendingEditText;

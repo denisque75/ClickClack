@@ -13,7 +13,7 @@ import com.clickclackmessenger.R;
 import com.clickclackmessenger.core.entities.users.Interlocutor;
 import com.clickclackmessenger.ui.chat_screens.ChatAdapter;
 import com.clickclackmessenger.ui.chat_screens.ChatMainScreenFragment;
-import com.clickclackmessenger.ui.chat_screens.InheritChat;
+import com.clickclackmessenger.ui.chat_screens.InheritChatActivity;
 import com.clickclackmessenger.ui.users_page.UsersPageFragment;
 
 public class MainActivity extends AppCompatActivity implements ChatAdapter.OnChatChosen {
@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity implements ChatAdapter.OnCha
 
     @Override
     public void chatChosen(Interlocutor interlocutor) {
-        Intent intent = new Intent(this, InheritChat.class);
-        intent.putExtra(InheritChat.INTERLOCUTOR, interlocutor);
+        Intent intent = new Intent(this, InheritChatActivity.class);
+        intent.putExtra(InheritChatActivity.INTERLOCUTOR, interlocutor);
         startActivity(intent);
     }
 

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.chat_screens.InheritChat"
+    tools:context=".ui.chat_screens.InheritChatActivity"
     tools:showIn="@layout/activity_inherit_chat">
 
     <android.support.v7.widget.RecyclerView
