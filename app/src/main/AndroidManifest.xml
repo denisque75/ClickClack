@@ -20,7 +20,8 @@
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.chat_screens.InheritChat"
             android:label="@string/title_activity_inherit_chat"

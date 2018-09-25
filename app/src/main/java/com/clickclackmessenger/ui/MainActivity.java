@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements ChatAdapter.OnCha
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.main_activity__toolbar);
+        setSupportActionBar(toolbar);
         mTextMessage = findViewById(R.id.message);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -37,6 +40,12 @@ public class MainActivity extends AppCompatActivity implements ChatAdapter.OnCha
         intent.putExtra(InheritChat.INTERLOCUTOR, interlocutor);
         startActivity(intent);
     }
+
+    /*@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        return super.onCreateOptionsMenu(menu);
+    }*/
 
     private class NavigationItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
 
