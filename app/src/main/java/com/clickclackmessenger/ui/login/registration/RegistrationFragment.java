@@ -3,7 +3,9 @@ package com.clickclackmessenger.ui.login.registration;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +38,9 @@ public class RegistrationFragment extends MvpAppCompatFragment implements Regist
     private EditText lastName;
     private RegistrationCallback callback;
 
+    private TextInputLayout nameLayout;
+    private TextInputLayout lastNameLayout;
+
     @ProvidePresenter
     public RegistrationPresenter provideRegistrationPresenter() {
         App.injector()
@@ -60,14 +65,36 @@ public class RegistrationFragment extends MvpAppCompatFragment implements Regist
         name = rootView.findViewById(R.id.registration__name_editText);
         lastName = rootView.findViewById(R.id.registration__lastName_editText);
 
+        name.setOnClickListener(this::removeErrorMessage);
+        lastName.setOnClickListener(this::removeErrorMessage);
+
+        nameLayout = rootView.findViewById(R.id.registration__name_inputLayout);
+        lastNameLayout = rootView.findViewById(R.id.registration__lastName_inputLayout);
+
         Button submitButton = rootView.findViewById(R.id.registration__submitButton);
         submitButton.setOnClickListener(this::saveUserName);
 
         return rootView;
     }
 
+    private void removeErrorMessage(View view) {
+        Log.d("asdasdas", "removeErrorMessage: ");
+        switch (view.getId()) {
+            case R.id.registration__name_editText: {
+                nameLayout.setError(null);
+                name.setText("");
+                break;
+            }
+            case R.id.registration__lastName_editText: {
+                lastNameLayout.setError(null);
+                lastName.setText("");
+                break;
+            }
+        }
+    }
+
     private void saveUserName(View view) {
-        registrationPresenter.registerUser(name.getText().toString(), lastName.getText().toString());
+        registrationPresenter.registerUser(name.getText().toString().trim(), lastName.getText().toString().trim());
     }
 
     @Override
@@ -89,6 +116,16 @@ public class RegistrationFragment extends MvpAppCompatFragment implements Regist
     @Override
     public void registrationIsFinished() {
         callback.openActivity(MainActivity.class);
+    }
+
+    @Override
+    public void incorrectName(String message) {
+        nameLayout.setError(message);
+    }
+
+    @Override
+    public void incorrectLastName(String message) {
+        lastNameLayout.setError(message);
     }
 
     public interface RegistrationCallback extends OpenActivityCallback {

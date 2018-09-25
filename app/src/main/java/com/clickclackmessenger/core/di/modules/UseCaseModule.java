@@ -8,6 +8,8 @@ import com.clickclackmessenger.core.use_cases.change_name_use_case.ChangeNameUse
 import com.clickclackmessenger.core.use_cases.change_name_use_case.ClickClackUserNameUseCase;
 import com.clickclackmessenger.core.use_cases.signIn.ClickClackSignInUseCase;
 import com.clickclackmessenger.core.use_cases.signIn.SignInUseCase;
+import com.clickclackmessenger.core.use_cases.validation.RegisterValidator;
+import com.clickclackmessenger.core.use_cases.validation.UserNameValidator;
 
 import javax.inject.Singleton;
 
@@ -25,7 +27,13 @@ public class UseCaseModule {
 
     @Provides
     @Singleton
-    ChangeNameUseCase provideChangeNameUseCase(UserSharedPrefRepository sharedPrefRepository, UserRepository userRepository) {
-        return new ClickClackUserNameUseCase(sharedPrefRepository, userRepository);
+    RegisterValidator provideRegisterValidator() {
+        return new UserNameValidator();
+    }
+
+    @Provides
+    @Singleton
+    ChangeNameUseCase provideChangeNameUseCase(UserSharedPrefRepository sharedPrefRepository, UserRepository userRepository, RegisterValidator validator) {
+        return new ClickClackUserNameUseCase(sharedPrefRepository, userRepository, validator);
     }
 }
