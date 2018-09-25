@@ -1,4 +1,4 @@
-package com.clickclackmessenger.ui.chat_screens;
+package com.clickclackmessenger.ui.inherit_chat;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,16 +11,17 @@ import com.clickclackmessenger.R;
 import com.clickclackmessenger.core.entities.chats.Message;
 import com.clickclackmessenger.utils.DateUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
 
-    private List<Message> messageList;
+    private final List<Message> messageList;
 
     public MessageAdapter() {
-
+        messageList = new ArrayList<>();
     }
 
     public MessageAdapter(List<Message> messageList) {

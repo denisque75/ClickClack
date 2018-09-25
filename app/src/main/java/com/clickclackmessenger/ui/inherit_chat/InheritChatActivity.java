@@ -1,4 +1,4 @@
-package com.clickclackmessenger.ui.chat_screens;
+package com.clickclackmessenger.ui.inherit_chat;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;

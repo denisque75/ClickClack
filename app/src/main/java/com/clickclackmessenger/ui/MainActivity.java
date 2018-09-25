@@ -13,7 +13,7 @@ import com.clickclackmessenger.R;
 import com.clickclackmessenger.core.entities.users.Interlocutor;
 import com.clickclackmessenger.ui.chat_screens.ChatAdapter;
 import com.clickclackmessenger.ui.chat_screens.ChatMainScreenFragment;
-import com.clickclackmessenger.ui.chat_screens.InheritChatActivity;
+import com.clickclackmessenger.ui.inherit_chat.InheritChatActivity;
 import com.clickclackmessenger.ui.users_page.UsersPageFragment;
 
 public class MainActivity extends AppCompatActivity implements ChatAdapter.OnChatChosen {
