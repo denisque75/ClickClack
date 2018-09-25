@@ -1,23 +1,27 @@
 package com.clickclackmessenger.ui.chat_screens;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
+import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.clickclackmessenger.R;
 
-public class ChatMainScreenFragment extends Fragment {
+public class ChatMainScreenFragment extends MvpAppCompatFragment implements ChatMainScreenView {
     private ChatAdapter.OnChatChosen onChatChosen;
 
     public ChatMainScreenFragment() {
@@ -65,12 +69,42 @@ public class ChatMainScreenFragment extends Fragment {
 
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
 
-        android.support.v7.widget.SearchView searchView = null;
+        SearchView searchView = null;
         if (searchItem != null) {
-            searchView = (android.support.v7.widget.SearchView) searchItem.getActionView();
+            searchView = (SearchView) searchItem.getActionView();
         }
         if (searchView != null) {
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         }
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                hideKeyBoard();
+                Toast.makeText(getContext(), query, Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+    }
+
+    private void hideKeyBoard() {
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = getActivity().getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(getActivity());
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public void showProgress(boolean show) {
+
     }
 }
