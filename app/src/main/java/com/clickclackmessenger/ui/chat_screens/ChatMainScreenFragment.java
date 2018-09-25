@@ -5,20 +5,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.clickclackmessenger.R;
 
@@ -77,30 +72,5 @@ public class ChatMainScreenFragment extends Fragment {
         if (searchView != null) {
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         }
-    }
-
-    public void setUpToolbar(View rootView) {
-        Toolbar toolbar = new Toolbar(rootView.getContext());
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, R.attr.actionBarSize);
-        toolbar.setLayoutParams(layoutParams);
-        toolbar.setPopupTheme(R.style.AppTheme);
-        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-
-        LinearLayout linearLayout = new LinearLayout(rootView.getContext());
-        LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        linearLayout.setLayoutParams(layoutParams1);
-        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-        ImageView imageView = new ImageView(rootView.getContext());
-        LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams2.gravity = Gravity.CENTER | Gravity.END;
-        imageView.setLayoutParams(layoutParams2);
-        imageView.setImageResource(R.drawable.ic_search);
-
-        linearLayout.addView(imageView);
-
-        //View view = LayoutInflater.from(rootView.getContext()).inflate(R.layout.search_toolbar_view, null);
-        toolbar.addView(linearLayout);
-        ((AppCompatActivity) getActivity()).getDelegate().setSupportActionBar(toolbar);
     }
 }
