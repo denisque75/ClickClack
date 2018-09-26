@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.clickclackmessenger.R;
 import com.clickclackmessenger.core.entities.chats.Chat;
-import com.clickclackmessenger.core.entities.users.Interlocutor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,10 +44,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (searchedData.size() > 0) {
             holder.bindItem(searchedData.get(position));
-            holder.setChatChosenListener(chatChosen);
+            holder.setChatChosenListener(chatChosen, searchedData.get(position).getBaseUser().getId());
         } else {
             holder.bindItem(chats.get(position));
-            holder.setChatChosenListener(chatChosen);
+            holder.setChatChosenListener(chatChosen, searchedData.get(position).getBaseUser().getId());
         }
     }
 
@@ -74,6 +73,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         }
     }
 
+    public interface OnChatChosen {
+
+        void chatChosen(String id);
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView name;
         public final TextView message;
@@ -89,7 +93,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
         }
 
-        private void setChatChosenListener(OnChatChosen chatChosen) {
+        private void setChatChosenListener(OnChatChosen chatChosen, String id) {
+            itemView.setOnClickListener(v -> chatChosen.chatChosen(id));
         }
 
         void bindItem(Chat chat) {
@@ -101,10 +106,5 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             String userInitials = chat.getBaseUser().getName().substring(0, 1) + chat.getBaseUser().getLastName().charAt(0);
             textImageView.setText(userInitials);
         }
-    }
-
-    public interface OnChatChosen {
-
-        void chatChosen(Interlocutor interlocutor);
     }
 }

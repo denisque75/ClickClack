@@ -10,13 +10,13 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.clickclackmessenger.R;
-import com.clickclackmessenger.core.entities.users.Interlocutor;
 import com.clickclackmessenger.ui.chat_screens.ChatAdapter;
 import com.clickclackmessenger.ui.chat_screens.ChatMainScreenFragment;
 import com.clickclackmessenger.ui.inherit_chat.InheritChatActivity;
 import com.clickclackmessenger.ui.users_page.UsersPageFragment;
 
 public class MainActivity extends AppCompatActivity implements ChatAdapter.OnChatChosen {
+    public static final String USER_ID = "user.id";
 
     private TextView mTextMessage;
 
@@ -35,8 +35,9 @@ public class MainActivity extends AppCompatActivity implements ChatAdapter.OnCha
     }
 
     @Override
-    public void chatChosen(Interlocutor interlocutor) {
+    public void chatChosen(String id) {
         Intent intent = new Intent(this, InheritChatActivity.class);
+        intent.putExtra(USER_ID, id);
         startActivity(intent);
     }
 

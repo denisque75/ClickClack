@@ -36,6 +36,8 @@ public class SearchInFirebaseRepository implements SearchRepository {
                 for (DataSnapshot snap : dataSnapshot.getChildren()) {
                     Chat chat = new Chat();
                     chat.setBaseUser(snap.getValue(Interlocutor.class));
+                    //set interlocutor id
+                    chat.getBaseUser().setId(snap.getKey());
                     chats.add(chat);
                 }
                 callback.onSuccess(chats);
