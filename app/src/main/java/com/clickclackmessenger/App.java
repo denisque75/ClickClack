@@ -5,6 +5,7 @@ import android.app.Application;
 import com.clickclackmessenger.core.di.AppComponent;
 import com.clickclackmessenger.core.di.DaggerAppComponent;
 import com.clickclackmessenger.core.di.modules.AppModule;
+import com.clickclackmessenger.core.di.modules.FirebaseModule;
 import com.clickclackmessenger.core.di.modules.RepositoryModule;
 import com.clickclackmessenger.core.di.modules.UseCaseModule;
 
@@ -30,6 +31,7 @@ public class App extends Application {
                 .appModule(new AppModule(this))
                 .repositoryModule(new RepositoryModule())
                 .useCaseModule(new UseCaseModule())
+                .firebaseModule(new FirebaseModule())
                 .build();
     }
 

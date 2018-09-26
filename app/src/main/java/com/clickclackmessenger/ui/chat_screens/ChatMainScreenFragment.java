@@ -16,13 +16,35 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
+import com.clickclackmessenger.App;
 import com.clickclackmessenger.R;
+import com.clickclackmessenger.core.di.components.MainChatComponent;
+import com.clickclackmessenger.core.entities.chats.Chat;
+import com.clickclackmessenger.ui.chat_screens.presenter.ChatScreenPresenter;
+
+import java.util.List;
+
+import javax.inject.Inject;
 
 public class ChatMainScreenFragment extends MvpAppCompatFragment implements ChatMainScreenView {
+    private static final String TAG = "ChatMainScreenFragment";
     private ChatAdapter.OnChatChosen onChatChosen;
+    @Inject
+    @InjectPresenter
+    ChatScreenPresenter presenter;
+    private ProgressBar progressBar;
+    private ChatAdapter chatAdapter;
+
+    @ProvidePresenter
+    public ChatScreenPresenter presenter() {
+        App.injector().plus(new MainChatComponent.Module()).inject(this);
+        return presenter;
+    }
 
     public ChatMainScreenFragment() {
     }
@@ -39,11 +61,14 @@ public class ChatMainScreenFragment extends MvpAppCompatFragment implements Chat
         //setUpToolbar(rootView);
 
         setHasOptionsMenu(true);
+        progressBar = rootView.findViewById(R.id.chat__progress_bar);
+        progressBar.setVisibility(View.GONE);
         RecyclerView recyclerView = rootView.findViewById(R.id.chat__recycler_view);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(manager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(new ChatAdapter(onChatChosen));
+        chatAdapter = new ChatAdapter(onChatChosen);
+        recyclerView.setAdapter(chatAdapter);
 
         return rootView;
     }
@@ -81,12 +106,15 @@ public class ChatMainScreenFragment extends MvpAppCompatFragment implements Chat
             @Override
             public boolean onQueryTextSubmit(String query) {
                 hideKeyBoard();
-                Toast.makeText(getContext(), query, Toast.LENGTH_SHORT).show();
+                presenter.searchData(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if (newText.equals("")) {
+                    chatAdapter.clearSearchData();
+                }
                 return false;
             }
         });
@@ -105,6 +133,16 @@ public class ChatMainScreenFragment extends MvpAppCompatFragment implements Chat
 
     @Override
     public void showProgress(boolean show) {
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
 
+    @Override
+    public void showSearchResults(List<Chat> chats) {
+        chatAdapter.setChats(chats);
+    }
+
+    @Override
+    public void showDefaultChats() {
+        chatAdapter.clearSearchData();
     }
 }

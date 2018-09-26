@@ -8,10 +8,13 @@ import com.clickclackmessenger.core.repositories.db_repository.remote_db.Firebas
 import com.clickclackmessenger.core.repositories.db_repository.remote_db.SignInDBRepository;
 import com.clickclackmessenger.core.repositories.db_repository.shared_pref.SharedPrefRepository;
 import com.clickclackmessenger.core.repositories.db_repository.shared_pref.UserSharedPrefRepository;
+import com.clickclackmessenger.core.repositories.search_repository.SearchInFirebaseRepository;
+import com.clickclackmessenger.core.repositories.search_repository.SearchRepository;
 import com.clickclackmessenger.core.repositories.sign_in.SignInRepository;
 import com.clickclackmessenger.core.repositories.sign_in.SignInToFirebaseRepository;
 import com.clickclackmessenger.core.repositories.user_remote_repository.FirebaseUserRepository;
 import com.clickclackmessenger.core.repositories.user_remote_repository.UserRepository;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import javax.inject.Singleton;
@@ -36,8 +39,8 @@ public class RepositoryModule {
 
     @Provides
     @Singleton
-    SignInDBRepository provideSignInDBRepository(SharedPrefRepository sharedPrefRepository) {
-        return new FirebaseSignInDBRepository(FirebaseDatabase.getInstance().getReference(), sharedPrefRepository);
+    SignInDBRepository provideSignInDBRepository(DatabaseReference database, SharedPrefRepository sharedPrefRepository) {
+        return new FirebaseSignInDBRepository(database, sharedPrefRepository);
     }
 
     @Provides
@@ -51,4 +54,11 @@ public class RepositoryModule {
     UserRepository provideUserRepository() {
         return new FirebaseUserRepository(FirebaseDatabase.getInstance().getReference());
     }
+
+    @Provides
+    @Singleton
+    SearchRepository providesSearchRepository(DatabaseReference databaseReference) {
+        return new SearchInFirebaseRepository(databaseReference);
+    }
+
 }

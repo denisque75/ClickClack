@@ -1,5 +1,7 @@
 package com.clickclackmessenger.core.entities.users;
 
+import java.util.Objects;
+
 public class BaseUser {
     private String name;
     private String lastName;
@@ -56,5 +58,34 @@ public class BaseUser {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BaseUser baseUser = (BaseUser) o;
+        return Objects.equals(name, baseUser.name) &&
+                Objects.equals(lastName, baseUser.lastName) &&
+                Objects.equals(id, baseUser.id) &&
+                Objects.equals(profileURL, baseUser.profileURL) &&
+                Objects.equals(phoneNumber, baseUser.phoneNumber);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(name, lastName, id, profileURL, phoneNumber);
+    }
+
+    @Override
+    public String toString() {
+        return "BaseUser{" +
+                "name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", id='" + id + '\'' +
+                ", profileURL='" + profileURL + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }

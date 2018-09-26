@@ -17,15 +17,18 @@ import java.util.List;
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private final List<Chat> chats;
     private final OnChatChosen chatChosen;
+    private final List<Chat> searchedData;
 
     public ChatAdapter(List<Chat> chats, OnChatChosen chatChosen) {
         this.chats = chats;
         this.chatChosen = chatChosen;
+        this.searchedData = new ArrayList<>();
     }
 
     public ChatAdapter(OnChatChosen chatChosen) {
         this.chatChosen = chatChosen;
         this.chats = new ArrayList<>();
+        this.searchedData = new ArrayList<>();
     }
 
     @NonNull
@@ -40,19 +43,35 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bindItem(chats.get(position));
-        holder.setChatChosenListener(chatChosen);
-
+        if (searchedData.size() > 0) {
+            holder.bindItem(searchedData.get(position));
+            holder.setChatChosenListener(chatChosen);
+        } else {
+            holder.bindItem(chats.get(position));
+            holder.setChatChosenListener(chatChosen);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return chats.size();
+        if (searchedData.size() > 0) {
+            return searchedData.size();
+        } else {
+            return chats.size();
+        }
     }
 
-    public interface OnChatChosen {
+    public void setChats(List<Chat> chats) {
+        searchedData.clear();
+        searchedData.addAll(chats);
+        notifyDataSetChanged();
+    }
 
-        void chatChosen(Interlocutor interlocutor);
+    public void clearSearchData() {
+        if (searchedData.size() > 0) {
+            searchedData.clear();
+            notifyDataSetChanged();
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -71,9 +90,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         }
 
         private void setChatChosenListener(OnChatChosen chatChosen) {
-            itemView.setOnClickListener(v -> {
-                chatChosen.chatChosen(new Interlocutor("a1", name.getText().toString()));
-            });
         }
 
         void bindItem(Chat chat) {
@@ -85,5 +101,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             String userInitials = chat.getBaseUser().getName().substring(0, 1) + chat.getBaseUser().getLastName().charAt(0);
             textImageView.setText(userInitials);
         }
+    }
+
+    public interface OnChatChosen {
+
+        void chatChosen(Interlocutor interlocutor);
     }
 }

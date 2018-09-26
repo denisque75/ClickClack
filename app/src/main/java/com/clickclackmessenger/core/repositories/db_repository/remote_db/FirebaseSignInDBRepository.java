@@ -6,7 +6,6 @@ import com.clickclackmessenger.core.callbacks.NewUserCallback;
 import com.clickclackmessenger.core.entities.users.BaseUser;
 import com.clickclackmessenger.core.fb_constants.FBConstantsDB;
 import com.clickclackmessenger.core.repositories.db_repository.shared_pref.SharedPrefRepository;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +23,7 @@ public class FirebaseSignInDBRepository implements SignInDBRepository {
 
     @Override
     public void saveUserToDB(NewUserCallback userCallback) {
-        Query getUserQuery = database.child(FBConstantsDB.PATH_USER).child(FirebaseAuth.getInstance().getUid());
+        Query getUserQuery = database.child(FBConstantsDB.PATH_USER).child(sharedPrefRepository.readUser().getPhoneNumber());
 
         BaseUser user = sharedPrefRepository.readUser();
 

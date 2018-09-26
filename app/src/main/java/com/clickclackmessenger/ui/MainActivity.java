@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements ChatAdapter.OnCha
     @Override
     public void chatChosen(Interlocutor interlocutor) {
         Intent intent = new Intent(this, InheritChatActivity.class);
-        intent.putExtra(InheritChatActivity.INTERLOCUTOR, interlocutor);
         startActivity(intent);
     }
 
