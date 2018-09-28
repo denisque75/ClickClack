@@ -1,8 +1,11 @@
 package com.clickclackmessenger.core.entities.users;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Objects;
 
-public class BaseUser {
+public class BaseUser implements Parcelable {
     private String name;
     private String lastName;
     private String id;
@@ -19,6 +22,18 @@ public class BaseUser {
         this.id = id;
         this.profileURL = profileURL;
     }
+
+    public static final Creator<BaseUser> CREATOR = new Creator<BaseUser>() {
+        @Override
+        public BaseUser createFromParcel(Parcel in) {
+            return new BaseUser(in);
+        }
+
+        @Override
+        public BaseUser[] newArray(int size) {
+            return new BaseUser[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -88,4 +103,28 @@ public class BaseUser {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
+
+
+    protected BaseUser(Parcel in) {
+        this.name = in.readString();
+        this.lastName = in.readString();
+        this.id = in.readString();
+        this.profileURL = in.readString();
+        this.phoneNumber = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeString(this.lastName);
+        dest.writeString(this.id);
+        dest.writeString(this.profileURL);
+        dest.writeString(this.phoneNumber);
+    }
+
 }

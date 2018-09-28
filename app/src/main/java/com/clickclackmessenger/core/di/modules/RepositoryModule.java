@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.clickclackmessenger.core.repositories.chat_repository.ChatRepository;
+import com.clickclackmessenger.core.repositories.chat_repository.InheritChatRepository;
 import com.clickclackmessenger.core.repositories.db_repository.remote_db.FirebaseSignInDBRepository;
 import com.clickclackmessenger.core.repositories.db_repository.remote_db.SignInDBRepository;
 import com.clickclackmessenger.core.repositories.db_repository.shared_pref.SharedPrefRepository;
@@ -61,4 +63,9 @@ public class RepositoryModule {
         return new SearchInFirebaseRepository(databaseReference);
     }
 
+    @Provides
+    @Singleton
+    ChatRepository providesChatRepository(DatabaseReference databaseReference) {
+        return new InheritChatRepository(databaseReference);
+    }
 }

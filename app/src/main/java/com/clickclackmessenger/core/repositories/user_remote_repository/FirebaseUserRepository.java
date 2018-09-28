@@ -17,14 +17,14 @@ public class FirebaseUserRepository implements UserRepository {
         if (userName.getName() != null && !userName.getName().equals("")) {
             database.child(FBConstantsDB.PATH_USER)
                     .child(FirebaseAuth.getInstance().getUid())
-                    .child(FBConstantsDB.USERS.NAME)
+                    .child(FBConstantsDB.Users.NAME)
                     .setValue(userName.getName());
         }
 
         if (userName.getLastName() != null && !userName.getLastName().equals("")) {
             database.child(FBConstantsDB.PATH_USER)
                     .child(FirebaseAuth.getInstance().getUid())
-                    .child(FBConstantsDB.USERS.LAST_NAME)
+                    .child(FBConstantsDB.Users.LAST_NAME)
                     .setValue(userName.getLastName());
         }
     }

@@ -8,31 +8,32 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.clickclackmessenger.R;
+import com.clickclackmessenger.core.entities.chats.Conversation;
 import com.clickclackmessenger.core.entities.chats.Message;
 import com.clickclackmessenger.utils.DateUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
 
-    private final List<Message> messageList;
+    private final String ownerUid;
+    private Conversation conversation;
 
-    public MessageAdapter() {
-        messageList = new ArrayList<>();
+    public MessageAdapter(String ownerUid) {
+        this.ownerUid = ownerUid;
+        conversation = new Conversation();
     }
 
-    public MessageAdapter(List<Message> messageList) {
-        this.messageList = messageList;
+    public MessageAdapter(String ownerUid, Conversation conversation) {
+        this(ownerUid);
+        this.conversation = conversation;
     }
 
     @Override
     public int getItemViewType(int position) {
-        String userId = messageList.get(position).getSender().getId();
+        String userId = conversation.getMessages().get(position).getSenderId();
 
-        if (userId.equals("owner")) {
+        if (userId.equals(ownerUid)) {
             return VIEW_TYPE_MESSAGE_SENT;
         } else {
             return VIEW_TYPE_MESSAGE_RECEIVED;
@@ -56,7 +57,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Message message = messageList.get(position);
+        Message message = conversation.getMessages().get(position);
 
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_MESSAGE_SENT:
@@ -70,17 +71,24 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return messageList.size();
+        return conversation.getMessages().size();
     }
 
     public void addMessage(Message message) {
-        messageList.add(message);
-        notifyItemChanged(messageList.size() - 1);
+        conversation.getMessages().add(message);
+        notifyItemChanged(conversation.getMessages().size() - 1);
 
     }
 
+    public void setConversation(Conversation conversation) {
+        if (conversation != null) {
+            this.conversation = conversation;
+            notifyDataSetChanged();
+        }
+    }
+
     public int getMaxPosition() {
-        return messageList.size() - 1;
+        return conversation.getMessages().size() - 1;
     }
 
     private static class ReceivedViewHolder extends RecyclerView.ViewHolder {

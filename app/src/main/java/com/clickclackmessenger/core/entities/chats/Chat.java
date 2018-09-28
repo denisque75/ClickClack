@@ -1,9 +1,9 @@
 package com.clickclackmessenger.core.entities.chats;
 
-import com.clickclackmessenger.core.entities.users.BaseUser;
+import com.clickclackmessenger.core.entities.users.Interlocutor;
 
 public class Chat {
-    private BaseUser baseUser;
+    private Interlocutor baseUser;
     private String formattedTime;
     private String message;
     private String photoUrl;
@@ -11,18 +11,18 @@ public class Chat {
     public Chat() {
     }
 
-    public Chat(BaseUser baseUser, String message, String formattedTime, String photoUrl) {
+    public Chat(Interlocutor baseUser, String message, String formattedTime, String photoUrl) {
         this.baseUser = baseUser;
         this.formattedTime = formattedTime;
         this.message = message;
         this.photoUrl = photoUrl;
     }
 
-    public BaseUser getBaseUser() {
+    public Interlocutor getBaseUser() {
         return baseUser;
     }
 
-    public void setBaseUser(BaseUser baseUser) {
+    public void setBaseUser(Interlocutor baseUser) {
         this.baseUser = baseUser;
     }
 

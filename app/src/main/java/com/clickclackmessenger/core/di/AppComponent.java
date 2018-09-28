@@ -1,5 +1,6 @@
 package com.clickclackmessenger.core.di;
 
+import com.clickclackmessenger.core.di.components.InheritChatComponent;
 import com.clickclackmessenger.core.di.components.MainChatComponent;
 import com.clickclackmessenger.core.di.components.RegistrationComponent;
 import com.clickclackmessenger.core.di.components.SignInComponent;
@@ -26,4 +27,6 @@ public interface AppComponent {
     RegistrationComponent plus(RegistrationComponent.Module module);
 
     MainChatComponent plus(MainChatComponent.Module module);
+
+    InheritChatComponent plus(InheritChatComponent.Module module);
 }

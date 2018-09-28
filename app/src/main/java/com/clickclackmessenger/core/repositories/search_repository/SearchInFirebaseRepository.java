@@ -26,7 +26,7 @@ public class SearchInFirebaseRepository implements SearchRepository {
 
     @Override
     public void searchData(String query, NetworkCallback<List<Chat>> callback) {
-        Query searchUsers = database.child(FBConstantsDB.PATH_USER).orderByChild(FBConstantsDB.USERS.PHONE_NUMBER).equalTo(query);
+        Query searchUsers = database.child(FBConstantsDB.PATH_USER).orderByChild(FBConstantsDB.Users.PHONE_NUMBER).equalTo(query);
 
         ValueEventListener eventListener = new ValueEventListener() {
             @Override

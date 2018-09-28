@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.clickclackmessenger.R;
 import com.clickclackmessenger.core.entities.chats.Chat;
+import com.clickclackmessenger.core.entities.users.Interlocutor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,10 +45,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (searchedData.size() > 0) {
             holder.bindItem(searchedData.get(position));
-            holder.setChatChosenListener(chatChosen, searchedData.get(position).getBaseUser().getId());
+            holder.setChatChosenListener(chatChosen, searchedData.get(position).getBaseUser());
         } else {
             holder.bindItem(chats.get(position));
-            holder.setChatChosenListener(chatChosen, searchedData.get(position).getBaseUser().getId());
+            holder.setChatChosenListener(chatChosen, searchedData.get(position).getBaseUser());
         }
     }
 
@@ -75,7 +76,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     public interface OnChatChosen {
 
-        void chatChosen(String id);
+        void chatChosen(Interlocutor interlocutor);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -93,8 +94,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
         }
 
-        private void setChatChosenListener(OnChatChosen chatChosen, String id) {
-            itemView.setOnClickListener(v -> chatChosen.chatChosen(id));
+        private void setChatChosenListener(OnChatChosen chatChosen, Interlocutor interlocutor) {
+            itemView.setOnClickListener(v -> chatChosen.chatChosen(interlocutor));
         }
 
         void bindItem(Chat chat) {
